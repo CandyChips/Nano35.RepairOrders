@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Nano35.Contracts;
+using Nano35.RepairOrders.Processor.Configurations;
 
 namespace Nano35.RepairOrders.Processor
 {
@@ -16,25 +18,14 @@ namespace Nano35.RepairOrders.Processor
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            new Configurator(services, new EntityFrameworkConfiguration("192.168.100.120", "Nano35.RepairORders.DB", "sa", "Cerber666")).Configure();
+            new Configurator(services, new MassTransitConfiguration()).Configure();
+            new Configurator(services, new AutoMapperConfiguration()).Configure();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
         }
     }
 }
