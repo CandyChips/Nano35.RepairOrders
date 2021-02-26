@@ -7,7 +7,6 @@ namespace Nano35.RepairOrders.Processor.Models
     public class Work
     {
         public Guid Id { get; set; }
-        
         public Guid InstanceId { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }

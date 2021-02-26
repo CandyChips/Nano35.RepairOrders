@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nano35-repair-orders-api
+  namespace: nano35
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nano35-repair-orders-api
+  template:
+    metadata:
+      labels:
+        app: nano35-repair-orders-api
+    spec:
+      containers:
+      - image: bushemi2021/nano35.repair-orders.api:latest
+        name: nano35-repair-orders-api
+        ports:
+        - containerPort: 80
+      restartPolicy: Always
